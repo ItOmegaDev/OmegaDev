@@ -1,0 +1,26 @@
+name: omegadev
+
+services:
+  web:
+    build: .
+    image: omegadev:latest
+    container_name: omegadev
+    restart: unless-stopped
+    networks:
+      - web
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  web:
+    external: true
